@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script type="text/javascript"
+        src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=FFjnxqUSkAJssDl44l9kHGhBwpWO0C4M"></script> -->
+    <style>
+        body,
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 300px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .left {
+            min-height: 300px;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* overflow-y: scroll; */
+            scroll-behavior: smooth;
+        }
+
+        .right {
+            height: 250px;
+            width: 40%;
+            position: static;
+            background-color: aqua;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 80%;
+            height: 200px;
+            margin: 10px 0;
+            border: 1px solid black;
+        }
+
+        .anchor {
+            text-decoration: none;
+            color: black;
+            display: block;
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .box.active {
+            background-color: bisque;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <!-- <div class="box"></div> -->
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    <a href="./1.html">地图测试</a>
+    <script>
+        for (let i = 0; i < 50; i++) {
+            let box = document.createElement('div')
+            box.className = 'box'
+            box.id = `div${i + 1}`;
+            box.innerText = `box${i + 1}`;
+            document.querySelector('.left').appendChild(box);
+        }
+        for (let i = 0; i < 10; i++) {
+            let a = document.createElement('a')
+            a.href = `#div${(i + 1) * 5}`;
+            a.className = 'anchor'
+            document.querySelector('.right').appendChild(a);
+            a.innerText = `滚动跳转到box${(i + 1) * 5}`;
+        }
+        document.addEventListener('scroll', function () {
+            // 获取地址栏url
+            document.querySelectorAll('.box').forEach(item => {
+                item.classList.remove('active');
+            })
+            let url = window.location.href;
+            const box = document.querySelector(`#${url.split('#')[1]}`);
+            box.classList.add('active');
+        })
+    </script>
+</body>
+
+</html>
