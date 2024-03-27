@@ -4,148 +4,53 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-		body,
-		html {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			background-color: rgb(220, 220, 220);
-		}
-
-		#allmap {
-			width: 50%;
-			height: 100%;
-		}
-
-		.cbody {
-			position: relative;
-			overflow-y: hidden;
-			/* display: flex;
-			justify-content: space-evenly; */
-		}
-
-		.info-col {
-			width: 50%;
-			scroll-behavior: smooth;
-		}
-
-		.border {
-			border: 2px solid rgb(25, 33, 148);
-			box-shadow: 0 0 10px rgb(106, 105, 105) !important;
-		}
-
-		.header {
-			width: 100%;
-			height: 150px;
-			background-color: #fff;
-			position: sticky;
-			top: 0;
-			z-index: 1;
-			display: flex;
-			justify-content: center;
-			align-items: flex-start;
-			flex-direction: column;
-			box-shadow: 0 0 4px gray;
-		}
-
-		.content {
-			width: 100%;
-			height: calc(100% - 150px);
-			display: flex;
-			justify-content: space-between;
-		}
-
-		/* 修改滚动条的样式 */
-		::-webkit-scrollbar {
-			width: 4px;
-			/* 设置滚动条的宽度 */
-		}
-
-		/* 滚动条轨道 */
-		::-webkit-scrollbar-track {
-			background: transparent;
-			/* 设置轨道的背景颜色 */
-		}
-
-		/* 滚动条滑块 */
-		::-webkit-scrollbar-thumb {
-			background: #888;
-			/* 设置滑块的背景颜色 */
-			border-radius: 6px;
-			/* 设置滑块的圆角 */
-		}
-
-		/* 滚动条滑块悬停时的样式 */
-		::-webkit-scrollbar-thumb:hover {
-			background: #555;
-			/* 设置滑块悬停时的背景颜色 */
-		}
-
-		.select-line {
-			width: 90%;
-			height: 50px;
-			display: flex;
-			align-items: center;
-			justify-content: space-around;
-		}
-
-		.select-width {
-			width: 300px;
-			height: 38px;
-			border: none;
-			border-radius: 5px;
-			color: #888;
-			border: 1px solid rgb(194, 191, 191);
-			box-shadow: 0 0 5px gray;
-		}
-
-		.select-width:focus {
-			outline: 2px solid rgb(25, 33, 148);
-		}
-		#search-btn{
-			cursor: pointer !important;
-			pointer-events: all !important;
-		}
-	</style>
+	<link rel="stylesheet" href="./css/index.min.css">
 	<title>地图展示</title>
 	<script src="https://kit.fontawesome.com/5957cb653d.js" crossorigin="anonymous"></script>
 	<!-- 引入 layui.js -->
 	<script src="//unpkg.com/layui@2.9.7/dist/layui.js"></script>
 	<!-- 引入 layui.css -->
 	<link href="//unpkg.com/layui@2.9.7/dist/css/layui.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+	<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.core.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.fp.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 </head>
 
 <body class="cbody">
 	<div class="header">
 		<img src="./images/logo.png" alt="">
 		<div class="select-line">
-			<div style="width: 300px; box-shadow: 0 0 5px gray; border-radius: 5px;" class="layui-input-wrap">
+			<div style="width: 250px; border-radius: 5px; margin-left: 20px;" class="layui-input-wrap">
 				<input type="text" class="layui-input search-input">
 				<div id="search-btn" class="layui-input-split layui-input-suffix">
 					<i class="layui-icon-search layui-icon"></i>
 				</div>
 			</div>
-			<select class="select-width select-one">
-				<option value="">please select price filter</option>
-				<option value="3">3+</option>
-				<option value="6">6+</option>
-				<option value="9">9+</option>
+			<select class="select-width" aria-label="Default select example">
+				<option value="">Please select to filter prices</option>
+				<option value="0-2000000">0-2000000</option>
+				<option value="2000000-2500000">2000000-2500000</option>
+				<option value="3000000-3500000">3000000-3500000</option>
 			</select>
-			<select class="select-width select-two">
-				<option value="">please select city filter</option>
-				<option value="2">2</option>
-				<option value="4">4</option>
-				<option value="6">6</option>
+			<select class="select-width" aria-label="Default select example">
+				<option value="">Please select to filter status</option>
+				<option value="for sale">for sale</option>
+				<option value="pending">pending</option>
+				<option value="sold">sold</option>
 			</select>
-			<select class="select-width select-three">
-				<option value="">please select sqft filter</option>
-				<option value="1">1-</option>
-				<option value="3">3-</option>
-				<option value="5">5-</option>
+			<select class="select-width" aria-label="Default select example">
+				<option value="">Please select to filter sqft</option>
+				<option value="5000-6000">5000-6000</option>
+				<option value="6000-7000">6000-7000</option>
+				<option value="7000-8000">7000-8000</option>
+				<option value="8000-9000">8000-9000</option>
+				<option value="9000-10000">9000-10000</option>
 			</select>
-			<button style="border-radius: 5px;" class="reset layui-btn layui-btn-primary layui-border">reset</button>
+			<button style="border-radius: 5px; margin-left: 20px;" class="reset layui-btn layui-btn-primary layui-border">reset</button>
 		</div>
 	</div>
 	<div class="content">
@@ -162,132 +67,30 @@
 	<!-- <i class="fa-solid fa-location-dot" style="color: red; font-size: 30px;"></i> -->
 	<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
 			({ key: "AIzaSyDag9MI2Ss2T52lYGcWI2-uKXDlIpco3fY", v: "weekly" });</script>
-	<script>
-		let latArr = [
-			[38.93084710110763, -77.24637143643123],
-			[38.90199741001162, -77.21341245205623],
-			[38.88489576288972, -77.15916745693904],
-			[38.88917156071437, -77.12140195400936],
-			[38.91428667525163, -77.11178891689998],
-			[38.96047664397741, -77.15217590332031],
-			[38.9695527321385, -77.24774472744686],
-			[38.88515369217454, -77.25941770107967],
-			[38.8504034216919, -77.15436093838436],
-			[38.83275447601657, -77.07059018643123],
-		]
-		const houseInfo = [
-
-		];
-		for (let i = 0; i < 10; i++) {
-			houseInfo.push({
-				id: i,
-				name: `house${i}`,
-				address: `address${i}`,
-				lat: latArr[i][0],
-				lng: latArr[i][1],
-				price: `price${i}`,
-			})
-		}
-		function renderCard(arr, className) {
-			let str = '';
-			arr.forEach((item, index) => {
-				str += `
-				<div id="h${item.id}" class="layui-card" style="height: 200px;">
-					<div class="layui-card-header">${item.name}</div>
-					<div class="layui-card-body">
-						${item.address}<br>
-						${item.price}<br>
-					</div>
-				</div>
-				`;
-			})
-			document.querySelector(`.${className}`).innerHTML = str;
-		}
-		renderCard(houseInfo, 'info-col');
-
-
-		let map;
-		async function initMap(houseInfo) {
-			const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-			const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
-				"marker",
-			);
-			const infoWindow = new InfoWindow()
-
-			map = new Map(document.getElementById("allmap"), {
-				center: { lat: 38.923902876995086, lng: -77.11408059471069 },
-				zoom: 11,
-				mapId: 'DEMO_MAP_ID'
-			})
-				// map.addListener("click", (e) => {
-				// 	console.log("点击了", e.latLng.lat(), e.latLng.lng())
-				// })
-				;
-			houseInfo.forEach((item, index) => {
-				const pin = new PinElement({
-					glyph: `${index + 1}`,
-				})
-				const marker = new google.maps.marker.AdvancedMarkerElement({
-					position: { lat: item.lat, lng: item.lng },
-					map,
-					title: item.name,
-				});
-				marker.addListener("click", (e) => {
-					console.log(e, item)
-					document.querySelectorAll('.layui-card').forEach(item => {
-						item.classList.remove('border');
-					})
-					document.querySelector(`#h${item.id}`).classList.add('border');
-					// 对应的卡片移至最顶端
-					document.querySelector(`#h${item.id}`).scrollIntoView({ behavior: "smooth", block: "center" });
-					infoWindow.close();
-					infoWindow.open(marker.map, marker);
-					infoWindow.setContent(`
-						<div class style="width: 300px;">
-							<h3>${item.name}</h3>
-							<img src="https://picsum.photos/id/${index}/300/150"/>
-							<p>${item.address}</p>
-							<p>${item.price}</p>
-						</div>
-					`);
-				})
-				// marker.addListener("click", (e) => {
-				// 	console.log(e)
-				// 	infoWindow.close();
-				// 	infoWindow.setContent(marker.content);
-				// 	infoWindow.open(marker.map, marker);
-				// });
-			})
-		}
-		initMap(houseInfo);
-		document.querySelector('.select-one').addEventListener('change', (e) => {
-			console.log(houseInfo.filter(item => Number(item.price.slice(item.price - 1)) > Number(e.target.value)), Number(e.target.value))
-			initMap(houseInfo.filter(item => item.price.slice(- 1) >= e.target.value));
-			renderCard(houseInfo.filter(item => item.price.slice(- 1) >= e.target.value), 'info-col')
+	<script type="module" src="./data.js"></script>
+	<script type="module" src="./function.js"></script>
+	<script type="module">
+		import { houseData } from './data.js';
+		import { initMap, renderCard } from './function.js'
+		const houseInfo = houseData.map(item => {
+			return {
+				id: item.id,
+				name: item.name,
+				address: item.address,
+				lat: Number(item.position.split(', ')[0]),
+				lng: Number(item.position.split(', ')[1]),
+				status: item.status,
+				price: item.price,
+				Bath: item.Bath,
+				Bed: item.Bed,
+				Garage: item.Garage,
+				sqft: item.sqft,
+				lotSize: item['Lot-Size'],
+				img: item.img
+			}
 		})
-		document.querySelector('.select-two').addEventListener('change', (e) => {
-			console.log(houseInfo.filter(item => Number(item.price.slice(item.price - 1)) > Number(e.target.value)), Number(e.target.value))
-			initMap(houseInfo.filter(item => item.price.slice(- 1) === e.target.value));
-			renderCard(houseInfo.filter(item => item.price.slice(- 1) === e.target.value), 'info-col')
-		})
-		document.querySelector('.select-three').addEventListener('change', (e) => {
-			console.log(houseInfo.filter(item => Number(item.price.slice(item.price - 1)) > Number(e.target.value)), Number(e.target.value))
-			initMap(houseInfo.filter(item => item.price.slice(- 1) <= e.target.value));
-			renderCard(houseInfo.filter(item => item.price.slice(- 1) <= e.target.value), 'info-col')
-		})
-		document.querySelector('#search-btn').addEventListener('click', (e) => {
-			const value = document.querySelector('.search-input').value;
-			initMap(houseInfo.filter(item => item.address.includes(value) || item.name === value));
-			renderCard(houseInfo.filter(item => item.address.includes(value) || item.name === value), 'info-col');
-		})
-		document.querySelector('.reset').addEventListener('click', (e) => {
-			document.querySelector('.search-input').value = '';
-			document.querySelectorAll('.select-width').forEach(item => {
-				item.value = '';
-			})
-			initMap(houseInfo)
-			renderCard(houseInfo, 'info-col')
-		})
+		initMap(houseInfo)
+		renderCard(houseInfo, 'info-col')
 	</script>
 </body>
 
