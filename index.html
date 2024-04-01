@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<link rel="stylesheet" href="./css/index.min.css">
-	<title>地图展示</title>
+	<title>available homes</title>
 	<script src="https://kit.fontawesome.com/5957cb653d.js" crossorigin="anonymous"></script>
 	<!-- 引入 layui.js -->
 	<script src="//unpkg.com/layui@2.9.7/dist/layui.js"></script>
@@ -18,45 +18,155 @@
 	<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.core.min.js"></script>
 	<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.fp.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body class="cbody">
 	<div class="header">
-		<img src="./images/logo.png" alt="">
-		<div class="select-line">
-			<div style="width: 250px; border-radius: 5px; margin-left: 20px;" class="layui-input-wrap">
-				<input type="text" class="layui-input search-input">
-				<div id="search-btn" class="layui-input-split layui-input-suffix">
-					<i class="layui-icon-search layui-icon"></i>
-				</div>
+		<div class="header-line">
+			<img class="logo" src="./images/logo.png" alt="">
+			<div class="input-container">
+				<input type="text" class="search">
+				<button class="search-btn"><i class="fa fa-search"></i></button>
+				<button data-type="price" class="select-btn first price-btn">
+					<span>Price</span>
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<button data-type="bed" class="select-btn bed-btn">
+					<span>Bed/Bath</span>
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<button data-type="type" class="select-btn type-btn">
+					<span>Home Type</span>
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<button data-type="filter" class="select-btn filter-btn">
+					<i class="fa fa-filter"></i>
+					<span>All Filters</span>
+				</button>
 			</div>
-			<select class="select-width" aria-label="Default select example">
-				<option value="">Please select to filter prices</option>
-				<option value="0-2000000">0-2000000</option>
-				<option value="2000000-2500000">2000000-2500000</option>
-				<option value="3000000-3500000">3000000-3500000</option>
-			</select>
-			<select class="select-width" aria-label="Default select example">
-				<option value="">Please select to filter status</option>
-				<option value="for sale">for sale</option>
-				<option value="pending">pending</option>
-				<option value="sold">sold</option>
-			</select>
-			<select class="select-width" aria-label="Default select example">
-				<option value="">Please select to filter sqft</option>
-				<option value="5000-6000">5000-6000</option>
-				<option value="6000-7000">6000-7000</option>
-				<option value="7000-8000">7000-8000</option>
-				<option value="8000-9000">8000-9000</option>
-				<option value="9000-10000">9000-10000</option>
-			</select>
-			<button style="border-radius: 5px; margin-left: 20px;" class="reset layui-btn layui-btn-primary layui-border">reset</button>
 		</div>
+
 	</div>
 	<div class="content">
 		<div id="allmap"></div>
 		<div class="info-col" style="overflow-y: scroll;"></div>
 	</div>
+	<div id="price" class="card-select-container hide">
+		<div class="card-content">
+			<p class="title">Please Enter Price Range to Filter</p>
+			<p class="input-line">
+				<input type="text" class="min-price price-input">
+				<span>-</span>
+				<input type="text" class="max-price price-input">
+			</p>
+			<p class="btn-line">
+				<button type="button" class="reset price-reset">Reset</button>
+				<button type="button" class="confirm price-confirm">Confirm</button>
+			</p>
+		</div>
+	</div>
+	<div id="bed" class="card-select-container hide">
+		<div class="card-content">
+			<p class="title">Please Select Beds Or Baths to Filter</p>
+			<p class="title2">Beds</p>
+			<div class="bed-select">
+				<div data-num="0" class="bed-num">Any</div>
+				<div data-num="3" class="bed-num">3+</div>
+				<div data-num="4" class="bed-num">4+</div>
+				<div data-num="5" class="bed-num">5+</div>
+				<div data-num="6" class="bed-num">6+</div>
+				<div data-num="7" class="bed-num">7</div>
+			</div>
+			<p class="title2">Baths</p>
+			<div class="bath-select">
+				<div data-num="0" class="bath-num">Any</div>
+				<div data-num="3" class="bath-num">3+</div>
+				<div data-num="4" class="bath-num">4+</div>
+				<div data-num="5" class="bath-num">5+</div>
+				<div data-num="6" class="bath-num">6+</div>
+				<div data-num="7" class="bath-num">7</div>
+			</div>
+			<p class="btn-line">
+				<button type="button" class="reset bed-reset">Reset</button>
+				<button type="button" class="confirm bed-confirm">Confirm</button>
+			</p>
+		</div>
+	</div>
+	<div id="type" class="card-select-container hide">
+		<div class="card-content">
+			<p class="title">Please Select Home Type to Filter</p>
+			<button type="button" class="housetype-btn">House</button>
+			<button type="button" class="housetype-btn">Townhouse</button>
+			<p class="btn-line">
+				<button type="button" class="reset">Reset</button>
+				<button type="button" class="confirm">Confirm</button>
+			</p>
+		</div>
+	</div>
+	<div class="mask hide">
+		<div class="filter-box">
+			<p class="house-type">
+				<button class="active">For Sale</button>
+				<button>Sold</button>
+			</p>
+			<div class="mask-select">
+				<p>Price</p>
+				<p class="input-line">
+					<input type="text" class="min-price price-input">
+					<span>-</span>
+					<input type="text" class="max-price price-input">
+				</p>
+			</div>
+			<div class="mask-select">
+				<p class="title2">Beds</p>
+				<div class="bed-select">
+					<div data-num="0" class="bed-num">Any</div>
+					<div data-num="3" class="bed-num">3+</div>
+					<div data-num="4" class="bed-num">4+</div>
+					<div data-num="5" class="bed-num">5+</div>
+					<div data-num="6" class="bed-num">6+</div>
+					<div data-num="7" class="bed-num">7</div>
+				</div>
+				<p class="title2">Baths</p>
+				<div class="bath-select">
+					<div data-num="0" class="bath-num">Any</div>
+					<div data-num="3" class="bath-num">3+</div>
+					<div data-num="4" class="bath-num">4+</div>
+					<div data-num="5" class="bath-num">5+</div>
+					<div data-num="6" class="bath-num">6+</div>
+					<div data-num="7" class="bath-num">7</div>
+				</div>
+			</div>
+			<div class="mask-select">
+				<p>Home Type</p>
+				<button type="button" class="housetype-btn">House</button>
+				<button type="button" class="housetype-btn">Townhouse</button>
+			</div>
+			<div class="mask-select">
+				<p>SQFT</p>
+				<p class="input-line">
+					<input type="text" class="min-sqft sqft-input" />
+					<span>-</span>
+					<input type="text" class="max-sqft sqft-input" />
+				</p>
+			</div>
+			<div class="mask-select">
+				<p>City</p>
+				<select name="city" id="city">
+					<option value="">Please Select City</option>
+				</select>
+			</div>
+			<p class="operation-line">
+				<button type="button">Reset</button></button></button>
+				<button type="button">Confirm</button>
+			</p>
+		</div>
+	</div>
+
 	<!-- <div class="layui-card" style="height: 300px;">
 			<div class="layui-card-header">卡片面板</div>
 			<div class="layui-card-body">
@@ -92,6 +202,7 @@
 		initMap(houseInfo)
 		renderCard(houseInfo, 'info-col')
 	</script>
+	<script src="./index.js" type="module"></script>
 </body>
 
 </html>

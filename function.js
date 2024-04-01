@@ -9,13 +9,14 @@ export async function initMap(houseInfo) {
     const infoWindow = new InfoWindow()
 
     map = new Map(document.getElementById("allmap"), {
-        center: { lat: 38.923902876995086, lng: -77.11408059472070 },
-        zoom: 12,
+        // center: { lat: 38.90931767464658 , lng: -77.17378722365528 },
+        center: { lat: 38.922856383502776, lng: -77.18227289214244 },
+        zoom: 13.5,
         mapId: '12aac7818bd4a829'
     })
-        // map.addListener("click", (e) => {
-        // 	console.log("点击了", e.latLng.lat(), e.latLng.lng())
-        // })
+    // map.addListener("click", (e) => {
+    //     console.log("点击了", e.latLng.lat(), e.latLng.lng())
+    // })
         ;
     houseInfo.forEach((item, index) => {
         const pin = new PinElement({
@@ -38,7 +39,6 @@ export async function initMap(houseInfo) {
             infoWindow.open(marker.map, marker);
             infoWindow.setContent(/*html*/`
 						<div class style="width: 600px; display: flex; flex-direction: column;">
-							<h3 style="text-align:left; font-size: 20px; margin: 10px 0;">${item.name}</h3>
 							<img src="${item.img}"/>
                             <h3 style="text-align:left; font-size: 20px; margin: 10px 0;">${item.address}</h3>
 							<p style="font-size: 16px; display: flex; justify-content: space-between; height: 30px;">
@@ -72,7 +72,7 @@ export function renderCard(arr, className) {
     if (arr.length > 0) {
         arr.forEach((item, index) => {
             str += /*html*/`
-            <div id="h${item.id}" class="layui-card" style="width: 95%; box-shadow:0 0 2px gray; margin-top: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div id="h${item.id}" class="layui-card" style="width: 98%; box-shadow:0 0 2px gray; margin-top: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="layui-card-header c-card-header">
                     <span>${item.address}</span>
                     <span class="${item.status === 'for sale' ? 'sale' : ''}">FOR SALE</span>
@@ -117,87 +117,87 @@ export function renderCard(arr, className) {
     document.querySelector(`.${className}`).innerHTML = str;
 }
 
-document.querySelectorAll('.select-width').forEach(item => {
-    item.addEventListener('change', e => {
-        const arr = Array.from(document.querySelectorAll('.select-width')).map(item => item.value);
-        const resultArr = houseData.filter(item => {
-            return (arr[0] === '' || (Number(item.price.replaceAll(',', '')) >= Number(arr[0].split('-')[0]) && Number(item.price.replaceAll(',', '')) < Number(arr[0].split('-')[1]))) && (arr[1] === '' || item.status === arr[1]) && (arr[2] === '' || (Number(item.sqft.replaceAll(',', '')) >= Number(arr[2].split('-')[0]) && Number(item.sqft.replaceAll(',', '')) < Number(arr[2].split('-')[1])))
-        })
-        console.log(resultArr)
-        const result = resultArr.map(item => {
-            return {
-                id: item.id,
-                name: item.name,
-                address: item.address,
-                lat: Number(item.position.split(', ')[0]),
-                lng: Number(item.position.split(', ')[1]),
-                status: item.status,
-                price: item.price,
-                Bath: item.Bath,
-                Bed: item.Bed,
-                Garage: item.Garage,
-                sqft: item.sqft,
-                lotSize: item['Lot-Size'],
-                img: item.img
-            }
-        })
-        initMap(result)
-        renderCard(result, 'info-col')
-    })
-})
-const houseInfojs = houseData.map(item => {
-    return {
-        id: item.id,
-        name: item.name,
-        address: item.address,
-        lat: Number(item.position.split(', ')[0]),
-        lng: Number(item.position.split(', ')[1]),
-        status: item.status,
-        price: item.price,
-        Bath: item.Bath,
-        Bed: item.Bed,
-        Garage: item.Garage,
-        sqft: item.sqft,
-        lotSize: item['Lot-Size'],
-        img: item.img
-    }
-})
-document.querySelector('.reset').addEventListener('click', e => {
-    document.querySelectorAll('.select-width').forEach(item => {
-        item.value = '';
-    })
-    document.querySelector('input[type="text"]').value = ''
-    initMap(houseInfojs)
-    renderCard(houseInfojs, 'info-col')
-})
+// document.querySelectorAll('.select-width').forEach(item => {
+//     item.addEventListener('change', e => {
+//         const arr = Array.from(document.querySelectorAll('.select-width')).map(item => item.value);
+//         const resultArr = houseData.filter(item => {
+//             return (arr[0] === '' || (Number(item.price.replaceAll(',', '')) >= Number(arr[0].split('-')[0]) && Number(item.price.replaceAll(',', '')) < Number(arr[0].split('-')[1]))) && (arr[1] === '' || item.status === arr[1]) && (arr[2] === '' || (Number(item.sqft.replaceAll(',', '')) >= Number(arr[2].split('-')[0]) && Number(item.sqft.replaceAll(',', '')) < Number(arr[2].split('-')[1])))
+//         })
+//         console.log(resultArr)
+//         const result = resultArr.map(item => {
+//             return {
+//                 id: item.id,
+//                 name: item.name,
+//                 address: item.address,
+//                 lat: Number(item.position.split(', ')[0]),
+//                 lng: Number(item.position.split(', ')[1]),
+//                 status: item.status,
+//                 price: item.price,
+//                 Bath: item.Bath,
+//                 Bed: item.Bed,
+//                 Garage: item.Garage,
+//                 sqft: item.sqft,
+//                 lotSize: item['Lot-Size'],
+//                 img: item.img
+//             }
+//         })
+//         initMap(result)
+//         renderCard(result, 'info-col')
+//     })
+// })
+// const houseInfojs = houseData.map(item => {
+//     return {
+//         id: item.id,
+//         name: item.name,
+//         address: item.address,
+//         lat: Number(item.position.split(', ')[0]),
+//         lng: Number(item.position.split(', ')[1]),
+//         status: item.status,
+//         price: item.price,
+//         Bath: item.Bath,
+//         Bed: item.Bed,
+//         Garage: item.Garage,
+//         sqft: item.sqft,
+//         lotSize: item['Lot-Size'],
+//         img: item.img
+//     }
+// })
+// document.querySelector('.reset').addEventListener('click', e => {
+//     document.querySelectorAll('.select-width').forEach(item => {
+//         item.value = '';
+//     })
+//     document.querySelector('input[type="text"]').value = ''
+//     initMap(houseInfojs)
+//     renderCard(houseInfojs, 'info-col')
+// })
 
-function inputSearch(str) {
-    const strArr = houseData.map(item => item.address.split(', ')[1]);
-    return strArr.find(item => item.includes(str));
-}
-// const throttleHandler = _.throttle((e) => {
-//     const str = inputSearch(e.target.value);
-//     console.log(str)
-// }, 300)
-document.querySelector('#search-btn').addEventListener('click', (e) => {
-    const inputValue = document.querySelector('input[type="text"]').value;
-    const resArr = houseData.filter(item => item.address.toLowerCase().includes(inputValue)).map(item => {
-        return {
-            id: item.id,
-            name: item.name,
-            address: item.address,
-            lat: Number(item.position.split(', ')[0]),
-            lng: Number(item.position.split(', ')[1]),
-            status: item.status,
-            price: item.price,
-            Bath: item.Bath,
-            Bed: item.Bed,
-            Garage: item.Garage,
-            sqft: item.sqft,
-            lotSize: item['Lot-Size'],
-            img: item.img
-        }
-    });
-    initMap(resArr);
-    renderCard(resArr, 'info-col')
-})
+// function inputSearch(str) {
+//     const strArr = houseData.map(item => item.address.split(', ')[1]);
+//     return strArr.find(item => item.includes(str));
+// }
+// // const throttleHandler = _.throttle((e) => {
+// //     const str = inputSearch(e.target.value);
+// //     console.log(str)
+// // }, 300)
+// document.querySelector('#search-btn').addEventListener('click', (e) => {
+//     const inputValue = document.querySelector('input[type="text"]').value;
+//     const resArr = houseData.filter(item => item.address.toLowerCase().includes(inputValue.toLowerCase())).map(item => {
+//         return {
+//             id: item.id,
+//             name: item.name,
+//             address: item.address,
+//             lat: Number(item.position.split(', ')[0]),
+//             lng: Number(item.position.split(', ')[1]),
+//             status: item.status,
+//             price: item.price,
+//             Bath: item.Bath,
+//             Bed: item.Bed,
+//             Garage: item.Garage,
+//             sqft: item.sqft,
+//             lotSize: item['Lot-Size'],
+//             img: item.img
+//         }
+//     });
+//     initMap(resArr);
+//     renderCard(resArr, 'info-col')
+// })

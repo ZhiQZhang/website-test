@@ -3,7 +3,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1127 Guilford Ct',
-        address: '1127 Guilford Ct, McLean, VA 22101 America',
+        address: '1127 Guilford Ct, McLean, VA 22101',
         position: '38.94403287272948, -77.17361001534256',
         status: 'for sale',
         price: '3,250,000',
@@ -17,7 +17,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '2503 Fowler St',
-        address: '2503 Fowler St, Falls Church, VA 22046 America',
+        address: '2503 Fowler St, Falls Church, VA 22046',
         position: '38.89144429389382, -77.1918519',
         status: 'for sale',
         price: '2,050,000',
@@ -31,7 +31,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '6400 26th St N',
-        address: '6400 26th St N, Arlington, VA 22207 America',
+        address: '6400 26th St N, Arlington, VA 22207',
         position: '38.894510181120395, -77.15575224232872',
         status: 'for sale',
         price: '2,350,000',
@@ -45,7 +45,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1533 Longfellow St',
-        address: '1533 Longfellow St, McLean, VA 22101 America',
+        address: '1533 Longfellow St, McLean, VA 22101',
         position: '38.927685893944414, -77.17313925767128',
         status: 'for sale',
         price: '3,500,000',
@@ -59,7 +59,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '2239 Highland Ave',
-        address: '2239 Highland Ave, Falls Church, VA 22046 America',
+        address: '2239 Highland Ave, Falls Church, VA 22046',
         position: '38.89875677165512, -77.18339547116437',
         status: 'for sale',
         price: '2,350,000',
@@ -73,7 +73,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1611/1609 Hunting Ave',
-        address: '1611/1609 Hunting Ave, McLean, VA 22102 America',
+        address: '1611/1609 Hunting Ave, McLean, VA 22102',
         position: '38.926413797311994, -77.19697172883563',
         status: 'for sale',
         price: '2,200,000',
@@ -87,7 +87,7 @@ export const houseData = [
     // {
     //     id: UUID.generate(),
     //     name: '1609 Hunting Ave',
-    //     address: '1609 Hunting Ave, McLean, VA 22102 America',
+    //     address: '1609 Hunting Ave, McLean, VA 22102',
     //     position: '38.92647400405225, -77.1970179',
     //     status: 'for sale',
     //     price: 0,
@@ -101,7 +101,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '7011 Tyndale St',
-        address: '7011 Tyndale St, McLean, VA 22101 America',
+        address: '7011 Tyndale St, McLean, VA 22101',
         position: '38.919569525983164, -77.1877960865069',
         status: 'for sale',
         price: '3,000,000',
@@ -115,7 +115,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1100 BallsHill Rd',
-        address: '1100 Balls Hill Rd, McLean, VA 22101 America',
+        address: '1100 Balls Hill Rd, McLean, VA 22101',
         position: '38.94733697735254, -77.19515265767127',
         status: 'for sale',
         price: '3,375,000',
@@ -129,7 +129,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1002 SaltMeadow Ln',
-        address: '1002 Salt Meadow Ln, McLean, VA 22101 America',
+        address: '1002 Salt Meadow Ln, McLean, VA 22101',
         position: '38.95129035692539, -77.19482742883562',
         status: 'for sale',
         price: '3,000,000',
@@ -143,7 +143,7 @@ export const houseData = [
     {
         id: UUID.generate(),
         name: '1803 Westmoreland St',
-        address: '1803 Westmoreland St, McLean, VA 22101 America',
+        address: '1803 Westmoreland St, McLean, VA 22101',
         position: '38.91870722278368, -77.17949759999999',
         status: 'for sale',
         price: '2,500,000',
