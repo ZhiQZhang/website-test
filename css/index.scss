@@ -223,11 +223,12 @@ html {
       background-color: transparent;
       border: 1px solid rgb(208, 208, 208);
       border-radius: 10px;
-      &:hover {
+      &:hover, &.active {
         border: 2px solid green;
         border-radius: 10px;
         background-color: rgba($color: green, $alpha: 0.2);
       }
+      
     }
   }
   .operation-line{
@@ -468,9 +469,8 @@ $left: 0;
   .img {
     width: 40%;
     height: 200px;
-    img {
-      height: 100%;
-    }
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   .info {
     width: 60%;
@@ -485,7 +485,7 @@ $left: 0;
       span {
         line-height: 30px;
         height: 30px;
-        font-size: 24px;
+        font-size: 1.5vw;
         font-weight: bold;
         font-family: "Reddit Mono", monospace;
         &:first-of-type {

@@ -1,5 +1,4 @@
-import { houseData } from "./data.js";
-
+import { houseData,  } from "./data.js";
 export async function initMap(houseInfo) {
     let map = null;
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
@@ -67,35 +66,36 @@ export async function initMap(houseInfo) {
     })
 }
 
+
 export function renderCard(arr, className) {
     let str = '';
     if (arr.length > 0) {
         arr.forEach((item, index) => {
             str += /*html*/`
-            <div id="h${item.id}" class="layui-card" style="width: 98%; box-shadow:0 0 2px gray; margin-top: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div data-item='${JSON.stringify(item)}' id="h${item.id}" class="layui-card" style="width: 98%; box-shadow:0 0 2px gray; margin-top: 20px; border-radius: 10px; margin-bottom: 20px;">
                 <div class="layui-card-header c-card-header">
                     <span>${item.address}</span>
                     <span class="${item.status === 'for sale' ? 'sale' : ''}">FOR SALE</span>
                 </div>
                 <div class="layui-card-body c-card-body">
-                    <div class="img"><img src="${item.img}"/></div>
+                    <div class="img" style="background-image: url(${item.img});"></div>
                     <div class="info">
                         <p class="info-header">
                             <span>${item.name}</span>
                             <span>$${item.price}</span>
                         </p>
-                        <p style="font-size: 16px; display: flex; justify-content: space-between; height: 30px;">
+                        <p style="font-size: 1vw; display: flex; justify-content: space-between; height: 30px;">
                             <span style="width: 200px;"><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-dollar-sign"></i>Price: $ <span>${item.price}</span></span>
                             <span style="width: 200px;"><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-bath"></i>Bath: <span>${item.Bath}</span></span>
                         </p>
-                        <p style="font-size: 16px; display: flex; justify-content: space-between; height: 30px;">
+                        <p style="font-size: 1vw; display: flex; justify-content: space-between; height: 30px;">
                             <span style="width: 200px;"><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-bed"></i>Bed: <span>${item.Bed}</span></span>
                             <span style="width: 200px;"><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-house"></i>Garage: <span>${item.Garage}</span></span>
                         </p>
-                        <p style="font-size: 16px; display: flex; justify-content: space-between; height: 30px;">
+                        <p style="font-size: 1vw; display: flex; justify-content: space-between; height: 30px;">
                             <span style="width: 200px;"><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-square"></i>Sqft: <span>${item.sqft}</span>SQFT</span>
                         </p>
-                        <p style="font-size: 16px; display: flex; justify-content: space-between; height: 30px;">
+                        <p style="font-size: 1vw; display: flex; justify-content: space-between; height: 30px;">
                             <span><i style="width: 30px; height: 30px;margin-right: 5px;text-align: center;" class="fa-solid fa-house-chimney"></i>Lot Size: <span>${item.lotSize}</span></span>
                         </p>
                         <p class="info-btn-p">

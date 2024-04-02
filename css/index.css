@@ -260,7 +260,7 @@ html {
   border-radius: 10px;
 }
 
-.filter-box .mask-select .housetype-btn:hover {
+.filter-box .mask-select .housetype-btn:hover, .filter-box .mask-select .housetype-btn.active {
   border: 2px solid green;
   border-radius: 10px;
   background-color: rgba(0, 128, 0, 0.2);
@@ -535,10 +535,8 @@ html {
 .c-card-body .img {
   width: 40%;
   height: 200px;
-}
-
-.c-card-body .img img {
-  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .c-card-body .info {
@@ -558,7 +556,7 @@ html {
 .c-card-body .info .info-header span {
   line-height: 30px;
   height: 30px;
-  font-size: 24px;
+  font-size: 1.5vw;
   font-weight: bold;
   font-family: "Reddit Mono", monospace;
 }

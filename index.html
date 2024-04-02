@@ -157,12 +157,12 @@
 			<div class="mask-select">
 				<p>City</p>
 				<select name="city" id="city">
-					<option value="">Please Select City</option>
+
 				</select>
 			</div>
 			<p class="operation-line">
-				<button type="button">Reset</button></button></button>
-				<button type="button">Confirm</button>
+				<button type="button" class="mask-reset">Reset</button></button></button>
+				<button type="button" class="mask-confirm">Confirm</button>
 			</p>
 		</div>
 	</div>
@@ -178,11 +178,19 @@
 	<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
 			({ key: "AIzaSyDag9MI2Ss2T52lYGcWI2-uKXDlIpco3fY", v: "weekly" });</script>
 	<script type="module" src="./data.js"></script>
-	<script type="module" src="./function.js"></script>
+	<script type="module" src="./function.js" defer></script>
 	<script type="module">
 		import { houseData } from './data.js';
 		import { initMap, renderCard } from './function.js'
-		const houseInfo = houseData.map(item => {
+		const city = ['McLean', 'Falls Church', 'Vienna', 'Arlington']
+		let selectStr = '<option value="">Please Select City</option>'
+		for(let i of city){
+			selectStr += /*html*/`
+				<option value="${i}">${i}</option>
+			`
+		}
+		document.querySelector('#city').innerHTML = selectStr
+		let houseInfo = houseData.map(item => {
 			return {
 				id: item.id,
 				name: item.name,
@@ -198,6 +206,11 @@
 				lotSize: item['Lot-Size'],
 				img: item.img
 			}
+		})
+		houseInfo = houseInfo.sort((a, b) => {
+			const cityA = city.indexOf(a.address.split(', ')[1])
+			const cityB = city.indexOf(b.address.split(', ')[1])
+			return cityA - cityB
 		})
 		initMap(houseInfo)
 		renderCard(houseInfo, 'info-col')
