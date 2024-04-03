@@ -177,11 +177,12 @@
 	<!-- <i class="fa-solid fa-location-dot" style="color: red; font-size: 30px;"></i> -->
 	<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
 			({ key: "AIzaSyDag9MI2Ss2T52lYGcWI2-uKXDlIpco3fY", v: "weekly" });</script>
-	<script type="module" src="./data.js"></script>
-	<script type="module" src="./function.js" defer></script>
+	<script type="module" src="./js/data.js"></script>
+	<script type="module" src="./js/function.js" defer></script>
 	<script type="module">
-		import { houseData } from './data.js';
-		import { initMap, renderCard } from './function.js'
+		import { houseData } from './js/data.js';
+		import { initMap, renderCard, getData } from './js/function.js'
+		// 渲染city 选择
 		const city = ['McLean', 'Falls Church', 'Vienna', 'Arlington']
 		let selectStr = '<option value="">Please Select City</option>'
 		for(let i of city){
@@ -190,32 +191,20 @@
 			`
 		}
 		document.querySelector('#city').innerHTML = selectStr
-		let houseInfo = houseData.map(item => {
-			return {
-				id: item.id,
-				name: item.name,
-				address: item.address,
-				lat: Number(item.position.split(', ')[0]),
-				lng: Number(item.position.split(', ')[1]),
-				status: item.status,
-				price: item.price,
-				Bath: item.Bath,
-				Bed: item.Bed,
-				Garage: item.Garage,
-				sqft: item.sqft,
-				lotSize: item['Lot-Size'],
-				img: item.img
-			}
+		// 获取数据
+		getData().then(res => {
+			// console.log(res)
+			const houseInfo = res.sort((a, b) => {
+				const cityA = city.indexOf(a['Project Address'].split(', ')[1])
+				const cityB = city.indexOf(b['Project Address'].split(', ')[1])
+				return cityA - cityB
+			})
+			// console.log(houseInfo)
+			initMap(houseInfo)
+			renderCard(houseInfo, 'info-col')
 		})
-		houseInfo = houseInfo.sort((a, b) => {
-			const cityA = city.indexOf(a.address.split(', ')[1])
-			const cityB = city.indexOf(b.address.split(', ')[1])
-			return cityA - cityB
-		})
-		initMap(houseInfo)
-		renderCard(houseInfo, 'info-col')
 	</script>
-	<script src="./index.js" type="module"></script>
+	<script src="./js/index.js" type="module"></script>
 </body>
 
 </html>
